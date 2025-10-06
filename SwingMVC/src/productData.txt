@@ -1,0 +1,5 @@
+UPC Product Price
+12345 Coffee 8.32
+67890 Muffin 2.50
+34223 Water 0.99
+21456 Donut 1.79
