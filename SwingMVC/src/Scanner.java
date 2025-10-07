@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -29,8 +30,8 @@ public class Scanner {
 	 Random rand = new Random();
 	 
 	 public Scanner() {
-
-		 //load data from text file
+		  
+		  //load data from text file
 		  loadData("productData.txt");
 
 		  frame = new JFrame("Scanner");
