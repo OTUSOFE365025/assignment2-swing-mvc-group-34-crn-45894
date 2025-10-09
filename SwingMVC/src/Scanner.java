@@ -1,70 +1,34 @@
 // This window emulates the scanning of an item. Every time the buttom is pressed
 // it will send a notification of a UPC code
 
-import java.awt.BorderLayout;
- 
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-
-import javax.swing.JPanel;
-
+import java.io.*;
+import java.util.*;
 
 public class Scanner {
-	// Scanner uses Swing framework to create a UPC code
-	 private JFrame frame;
-	 private JPanel scannerPanel;
-	 private JButton scanButton;
-	 
-	 public Scanner() {
-		  frame = new JFrame("Scanner");
-		  frame.getContentPane().setLayout(new BorderLayout());
-		  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		  frame.setSize(100, 100);
-		  frame.setLocation(300,50);
-		  frame.setVisible(true);
-		  
-		  
-		  // Create UI elements
-		  scanButton = new JButton("Scan");
-		  scannerPanel = new JPanel();
-		  
-		  // Add UI element to frame
-		  scannerPanel.add(scanButton);
-		  frame.getContentPane().add(scannerPanel);
-		  
-		  scanButton.addActionListener(e -> generateUPC());
-	 }
+    private ArrayList<String[]> productData = new ArrayList<>();
+    private Random rand = new Random();
 
-	private int generateUPC() {
-		int upcCode = 12345; 
-		System.out.println(upcCode);
-		return upcCode;
-	}
+    public Scanner() {
+        loadData("productData.txt");
+    }
 
-	public JFrame getFrame() {
-		return frame;
-	}
+    private void loadData(String filename) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            boolean firstLine = true;
+            while ((line = br.readLine()) != null) {
+                if (firstLine) { firstLine = false; continue; }
+                String[] parts = line.trim().split("\\s+");
+                if (parts.length == 3) productData.add(parts);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
 
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
-	}
-
-	public JPanel getScannerPanel() {
-		return scannerPanel;
-	}
-
-	public void setScannerPanel(JPanel scannerPanel) {
-		this.scannerPanel = scannerPanel;
-	}
-
-	public JButton getScanButton() {
-		return scanButton;
-	}
-
-	public void setScanButton(JButton scanButton) {
-		this.scanButton = scanButton;
-	}	 
-	 
-
+    public String getRandomUPC() {
+        if (productData.isEmpty()) return null;
+        int index = rand.nextInt(productData.size());
+        return productData.get(index)[0];  // Return UPC
+    }
 }
