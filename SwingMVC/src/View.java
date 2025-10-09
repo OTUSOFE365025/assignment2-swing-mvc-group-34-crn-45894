@@ -1,51 +1,40 @@
-import java.awt.BorderLayout;
- 
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 public class View {
-	// View uses Swing framework to display UI to user
-	 private JFrame frame;
-	 private JLabel firstnameLabel;
-	 private JLabel lastnameLabel;
-	 private JTextField firstnameTextfield;
-	 private JTextField lastnameTextfield;
-	 private JButton firstnameSaveButton;
-	 private JButton lastnameSaveButton;
-	 private JButton hello;
-	 private JButton bye;
+    private JFrame frame;
 
-	// Cash Register fields
+    private JLabel firstnameLabel;
+    private JLabel lastnameLabel;
+    private JTextField firstnameTextfield;
+    private JTextField lastnameTextfield;
+    private JButton firstnameSaveButton;
+    private JButton lastnameSaveButton;
+    private JButton hello;
+    private JButton bye;
+
+    // Cash Register fields
     private JTextArea itemsArea;
     private JLabel subtotalLabel;
     private JButton scanButton;
-	
-	 public View(String title) {
-	  frame = new JFrame(title);
-	  frame.getContentPane().setLayout(new BorderLayout());
-	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	  frame.setSize(500, 120);
-	  frame.setLocationRelativeTo(null);
-	  frame.setVisible(true);
-	 
-	  // Create UI elements
-	  firstnameLabel = new JLabel("Firstname :");
-	  lastnameLabel = new JLabel("Lastname :");
-	  firstnameTextfield = new JTextField();
-	  lastnameTextfield = new JTextField();
-	  firstnameSaveButton = new JButton("Save firstname");
-	  lastnameSaveButton = new JButton("Save lastname");
-	  hello = new JButton("Hello!");
-	  bye = new JButton("Bye!");
-	 
+
+    public View(String title) {
+        frame = new JFrame(title);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.setLocationRelativeTo(null);
+
+        // Original UI Components
+        firstnameLabel = new JLabel("Firstname :");
+        lastnameLabel = new JLabel("Lastname :");
+        firstnameTextfield = new JTextField(10);
+        lastnameTextfield = new JTextField(10);
+        firstnameSaveButton = new JButton("Save firstname");
+        lastnameSaveButton = new JButton("Save lastname");
+        hello = new JButton("Hello!");
+        bye = new JButton("Bye!");
+
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new GridLayout(2,1));
 
@@ -81,7 +70,7 @@ public class View {
         registerPanel.add(scrollPane, BorderLayout.CENTER);
         registerPanel.add(subtotalLabel, BorderLayout.SOUTH);
 
-        // ----- Combine Panels -----
+        //Combine Panels 
         frame.setLayout(new BorderLayout());
         frame.add(namePanel, BorderLayout.NORTH);
         frame.add(registerPanel, BorderLayout.CENTER);
@@ -108,10 +97,5 @@ public class View {
         }
         subtotalLabel.setText(String.format("Subtotal: $%.2f", subtotal));
     }
-	 
-	 public void setBye(JButton bye) {
-	  this.bye = bye;
-	 }
 }
-	 
-}
+
