@@ -3,11 +3,13 @@ import javax.swing.JOptionPane;
 public class Controller {
 	 private Model model;
 	 private View view;
-	 
-	 public Controller(Model m, View v) {
-	  model = m;
-	  view = v;
-	  initView();
+	 private Scanner scanner;
+	
+	 public Controller(Model m, View v, Scanner s) {
+	   this.model = m;
+        this.view = v;
+        this.scanner = s;
+        initView();
 	 }
 	 
 	 public void initView() {
@@ -20,6 +22,7 @@ public class Controller {
 	  view.getLastnameSaveButton().addActionListener(e -> saveLastname());
 	  view.getHello().addActionListener(e -> sayHello());
 	  view.getBye().addActionListener(e -> sayBye());
+		view.getScanButton().addActionListener(e -> scanItem());
 	 }
 	 
 	 private void saveFirstname() {
@@ -39,5 +42,16 @@ public class Controller {
 	 private void sayBye() {
 	  System.exit(0);
 	 }
+
+	 private void scanItem() {
+        String upc = scanner.getRandomUPC();
+        if (upc != null) {
+            model.addItem(upc);
+            // Update the view so items and subtotal are shown
+            view.updateDisplay(model.getScannedItems(), model.getSubtotal());
+        } else {
+            JOptionPane.showMessageDialog(null, "No products available.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 	 
 }
